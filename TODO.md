@@ -13,7 +13,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - `get_trending_movies($page)` - returns API URL for trending movies (if possible)
   - `get_similar_movies($movie_id, $page)` - returns API URL for similar movies (if possible)
 
-- [ ] Implement `_vidsrc.php` provider class with methods:
+- [x] Implement `_vidsrc.php` provider class with methods:
   - `get_movie($movie_id)` - returns API URL for movie embed links
   - `get_trending_movies($page)` - returns API URL for trending movies (if possible)
   - `get_similar_movies($movie_id, $page)` - returns API URL for similar movies (if possible)
