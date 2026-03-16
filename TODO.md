@@ -3,8 +3,8 @@
 This TODO list outlines the development tasks for implementing the aggregation of embed links from various source APIs in the Movie Gallery API.
 
 ## Core Aggregation Logic
-- [ ] Create `config.php` file to define provider configurations, including:
-  - List of providers (_2embed, _cinemaos, _vidsrc) with priorities, timeouts, and enabled status
+- [x] Create `config.php` file to define provider configurations, including:
+  - List of providers (_2embed, _cinemaos, _vidsrc, etc.) with priorities, timeouts, and enabled status
   - Quality ranking system (4K, 1080p, etc.)
   - Global settings like max retries and default timeout
 
