@@ -22,8 +22,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - `get_aggregated_movie($movie_id)` method that:
     - Fetches movie data from primary provider (_2embed)
     - Aggregates embed links from all enabled providers
-    - Handles provider failures gracefully
-    - Sorts streams by quality ranking
+    - Handles provider failures 
     - Returns combined movie data with all available streams
 
 - [ ] Update `endpoints/get_movie.php` to:
