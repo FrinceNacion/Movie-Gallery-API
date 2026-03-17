@@ -8,19 +8,21 @@ class Config {
             'timeout' => 10, // seconds
             'enabled' => true
         ],
-        '_cinemaos' => [
-            'class' => '_cinemaos',
+        '_CinemaOS' => [
+            'class' => '_CinemaOS',
             'priority' => 2,
             'timeout' => 10,
             'enabled' => true
         ],
-        '_vidsrc' => [
-            'class' => '_vidsrc',
+        '_VidSrc' => [
+            'class' => '_VidSrc',
             'priority' => 3,
             'timeout' => 10,
             'enabled' => true
         ]
     ];
+
+    const PRIMARY_PROVIDER = PROVIDERS['_2embed']['class'];
 
     // Quality ranking (higher number = better quality)
     const QUALITY_RANKING = [
