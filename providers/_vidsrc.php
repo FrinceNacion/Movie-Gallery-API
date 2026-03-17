@@ -3,7 +3,7 @@ class _Vidsrc {
     /** Uses TMDB or IMDB ID for movie ID
      * Returns only the URL for the movie player
      */
-    static function get_movie($movie_id) {
+    static function get_movie_embed($movie_id) {
         $url = 'https://vidsrc-embed.ru/embed/movie/%s';
         return sprintf($url, $movie_id);
     }
