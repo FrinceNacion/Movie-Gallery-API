@@ -9,6 +9,7 @@ class Movie {
     public static function get_aggregated_movie($movie_id){
         $primary_provider = Config::PRIMARY_PROVIDER;
         $primary_provider = new $primary_provider();
+        $embed_links = [];
 
         $response = $primary_provider->get_movie($movie_id);
         $movie = json_decode(file_get_contents($response), true);
@@ -17,11 +18,16 @@ class Movie {
             throw new Error('Movie not found in primary provider');
         }
 
-        $embed_link = [];
-        $embed_link[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'] ?? null;
-        $embed_link = self::get_embed_from_providers($movie_id, $embed_link);
+        // Extract primary embed link and then get from other providers
+        $embed_links[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'] ?? null;
+        $embed_links[Config::PRIMARY_PROVIDER . '(2)'] = $movie['embed_tmdb'] ?? null;
+        $embed_links = self::get_embed_from_providers($movie_id, $embed_links);
 
-        $movie['embed_links'] = $embed_link;
+        // unset primary embed links to avoid confusion
+        unset($movie['embed_imdb']);
+        unset($movie['embed_tmdb']);
+
+        $movie['embed_links'] = $embed_links;
         return json_encode($movie);
     }
 
