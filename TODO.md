@@ -25,9 +25,8 @@ This TODO list outlines the development tasks for implementing the aggregation o
     - Handles provider failures 
     - Returns combined movie data with all available streams
 
-- [ ] Update `endpoints/get_movie.php` to:
+- [x] Update `endpoints/get_movie.php` to:
   - Require the Movie model instead of direct provider
-  - Validate IMDB ID format
   - Use `Movie::get_aggregated_movie()` for data retrieval
   - Return aggregated streams with provider information
   - Include error handling and appropriate HTTP status codes
