@@ -1,5 +1,5 @@
 <?php
-require_once 'providers/_2embed.php';
+require_once '../models/movie.php';
 header('Content-Type: application/json');
 
 // GET request only
@@ -16,7 +16,7 @@ if (!$movie_id) {
     exit();
 }
 
-$url = _2embed::get_movie($movie_id);
-$movie = json_decode(file_get_contents($url), true);
+$url = Movie::get_aggregated_movie($movie_id);
+$movie = json_decode($url, true);
 
 echo json_encode(['success' => true, 'movie' => $movie]);
