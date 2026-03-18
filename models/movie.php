@@ -6,23 +6,38 @@ require_once '../providers/_vidsrc.php';
 
 class Movie {
 
-    private static function get_aggregated_movie($movie_id){
+    public static function get_aggregated_movie($movie_id){
         $primary_provider = Config::PRIMARY_PROVIDER;
         $primary_provider = new $primary_provider();
 
         $response = $primary_provider->get_movie($movie_id);
-        $movie = json_decode($response, true);
-        
+        $movie = json_decode(file_get_contents($response), true);
+
         if (isset($movie['error'])) {
-            return null; // throw new Error('Movie not found in primary provider');
+            throw new Error('Movie not found in primary provider');
         }
 
         $embed_link = [];
-        $embed_link[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'];
-        // Add embed links from other enabled providers
-        
+        $embed_link[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'] ?? null;
+        $embed_link = self::get_embed_from_providers($movie_id, $embed_link);
+
         $movie['embed_links'] = $embed_link;
         return json_encode($movie);
+    }
+
+    private static function get_embed_from_providers($movie_id, $embed_links) {
+        $enabled_providers = self::get_enabled_providers();
+    
+        foreach ($enabled_providers as $provider_name => $provider_config) {
+            $provider_class = new $provider_name();
+            $embed_link = $provider_class->get_movie_embed($movie_id);
+            
+            if (isset($embed_link)) {
+                $embed_links[$provider_name] = $embed_link;
+            }
+        }
+
+        return $embed_links;
     }
     
 
