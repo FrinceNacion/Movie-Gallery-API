@@ -1,12 +1,12 @@
 <?php
 class Config {
     // Provider configuration
-    const PROVIDERS = [
+    public const PROVIDERS = [
         '_2embed' => [
             'class' => '_2embed',
             'priority' => 1,
             'timeout' => 10, // seconds
-            'enabled' => true
+            'enabled' => false
         ],
         '_CinemaOS' => [
             'class' => '_CinemaOS',
@@ -22,10 +22,10 @@ class Config {
         ]
     ];
 
-    const PRIMARY_PROVIDER = PROVIDERS['_2embed']['class'];
+    public const PRIMARY_PROVIDER ='_2embed';
 
     // Quality ranking (higher number = better quality)
-    const QUALITY_RANKING = [
+    public const QUALITY_RANKING = [
         '4K' => 5,
         '2160p' => 5,
         '1440p' => 4,
@@ -38,6 +38,6 @@ class Config {
     ];
 
     // Global settings
-    const MAX_RETRIES = 2;
-    const DEFAULT_TIMEOUT = 10;
+    public const MAX_RETRIES = 2;
+    public const DEFAULT_TIMEOUT = 10;
 }
