@@ -12,7 +12,19 @@ class Movie {
         $embed_links = [];
 
         $response = $primary_provider->get_movie($movie_id);
-        $movie = json_decode(file_get_contents($response), true);
+        if (empty($response) || !is_string($response)) {
+            throw new Error('Primary provider returned an invalid response');
+        }
+
+        $movie_json = @file_get_contents($response); // returns false on failure, suppress warnings with @
+        if ($movie_json === false) {
+            throw new Error('Failed to fetch movie data from primary provider');
+        }
+
+        $movie = json_decode($movie_json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
+        }
 
         if (isset($movie['error'])) {
             throw new Error('Movie not found in primary provider');
@@ -35,11 +47,15 @@ class Movie {
         $enabled_providers = self::get_enabled_providers();
     
         foreach ($enabled_providers as $provider_name => $provider_config) {
-            $provider_class = new $provider_name();
-            $embed_link = $provider_class->get_movie_embed($movie_id);
-            
-            if (isset($embed_link)) {
-                $embed_links[$provider_name] = $embed_link;
+            try {
+                $provider_class = new $provider_name();
+                $embed_link = $provider_class->get_movie_embed($movie_id);
+
+                if (isset($embed_link)) {
+                    $embed_links[$provider_name] = $embed_link;
+                }
+            } catch (Throwable $e) {
+                continue;
             }
         }
 
