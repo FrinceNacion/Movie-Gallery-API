@@ -18,7 +18,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - `get_trending_movies($page)` - returns API URL for trending movies (if possible)
   - `get_similar_movies($movie_id, $page)` - returns API URL for similar movies (if possible)
 
-- [ ] Create `model/movie.php` class with aggregation functionality:
+- [x] Create `model/movie.php` class with aggregation functionality:
   - `get_aggregated_movie($movie_id)` method that:
     - Fetches movie data from primary provider (_2embed)
     - Aggregates embed links from all enabled providers
