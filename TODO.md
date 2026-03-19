@@ -31,21 +31,6 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - Return aggregated streams with provider information
   - Include error handling and appropriate HTTP status codes
 
-## Supporting Tasks
-- [ ] Fix require paths in `endpoints/get_similar_movies.php` and `endpoints/get_trending_movies.php` to correctly reference provider files
-
-- [ ] Update `providers/_2embed.php` to fix URL formatting issues (e.g., correct sprintf placeholders)
-
-- [ ] Add timeout handling and user agent headers in provider fetch methods for reliability
-
-- [ ] Implement quality-based sorting for aggregated streams to prioritize higher quality links
-
-- [ ] Add provider error logging for debugging failed provider requests
-
-- [ ] Test aggregation with multiple providers to ensure streams are combined correctly
-
-- [ ] Update API response format to include provider information for each stream
-
 ## Future Enhancements
 - [ ] Add caching mechanism for movie data to reduce API calls
 - [ ] Add fallback providers when primary provider fails
