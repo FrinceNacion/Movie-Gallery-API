@@ -1,12 +1,15 @@
 <?php
 class Config {
+
+    public const PRIMARY_PROVIDER ='_2embed';
+
     // Provider configuration
     public const PROVIDERS = [
-        '_2embed' => [
-            'class' => '_2embed',
+        '_VidLink' => [
+            'class' => '_VidLink',
             'priority' => 1,
-            'timeout' => 10, // seconds
-            'enabled' => false
+            'timeout' => 10, // seconds, need to implement timeout handling in provider classes
+            'enabled' => true
         ],
         '_CinemaOS' => [
             'class' => '_CinemaOS',
@@ -21,8 +24,6 @@ class Config {
             'enabled' => true
         ]
     ];
-
-    public const PRIMARY_PROVIDER ='_2embed';
 
     // Quality ranking (higher number = better quality)
     public const QUALITY_RANKING = [
