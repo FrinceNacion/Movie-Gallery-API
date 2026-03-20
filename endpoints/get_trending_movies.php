@@ -1,4 +1,5 @@
 <?php
+require_once '../models/movie.php';
 header('Content-Type: application/json');
 
 // GET request only
@@ -10,8 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 $page = $_GET['page'] ?? 1;
 
-require_once './providers/_2embed.php';
-$url = _2embed::get_trending_movies($page);
-$movie = json_decode(file_get_contents($url), true);
+$url = Movie::get_trending_movies($page);
+$movies = json_decode($url, true);
 
-echo json_encode(['success' => true, 'movies' => $movie]);
+echo json_encode(['success' => true, 'movies' => $movies]);
