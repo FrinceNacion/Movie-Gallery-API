@@ -4,7 +4,7 @@ class _2embed {
      * Returns a json response with the movie details and the streaming links (embed)
      */
     static function get_movie($movie_id) {
-        $url = 'https://api.2embed.cc/movie?imdb_id=%s';
+        $url = sprintf('https://api.2embed.cc/movie?imdb_id=%s', $movie_id);
 
         $movie_json = @file_get_contents($url); // returns false on failure, suppress warnings with @
         if ($movie_json === false) {
@@ -20,7 +20,7 @@ class _2embed {
             throw new Error('Movie not found in primary provider');
         }
 
-        return $movie_json;
+        return $movie;
     }
 
     /**
@@ -29,7 +29,7 @@ class _2embed {
      * results[] - array of movies
      */
     static function get_trending_movies($page = 1) {
-        $url = 'https://api.2embed.cc/trending?page={%d}';
+        $url = sprintf('https://api.2embed.cc/trending?page=%d', $page);
 
         $movies_json = @file_get_contents($url);
         if ($movies_json === false) {
@@ -54,7 +54,7 @@ class _2embed {
      * results[] - array of similar movies
      */
     static function get_similar_movies($movie_id, $page = 1) {
-        $url = 'https://api.2embed.cc/similar?imdb_id=%s&page=%d';
+        $url = sprintf('https://api.2embed.cc/similar?imdb_id=%s&page=%d', $movie_id, $page);
 
         $movies_json = @file_get_contents($url);
         if ($movies_json === false) {
