@@ -1,26 +1,26 @@
 <?php
 class Config {
 
-    public const PRIMARY_PROVIDER ='_2embed';
+    public const PRIMARY_PROVIDER = '_2embed';
 
     // Provider configuration
     public const PROVIDERS = [
         '_VidLink' => [
             'class' => '_VidLink',
             'priority' => 1,
-            'timeout' => 10, // seconds, need to implement timeout handling in provider classes
+            'path' => '../providers/_vidlink.php',
             'enabled' => true
         ],
         '_CinemaOS' => [
             'class' => '_CinemaOS',
             'priority' => 2,
-            'timeout' => 10,
+            'path' => '../providers/_cinemaos.php',
             'enabled' => true
         ],
         '_VidSrc' => [
             'class' => '_VidSrc',
             'priority' => 3,
-            'timeout' => 10,
+            'path' => '../providers/_vidsrc.php',
             'enabled' => true
         ]
     ];
