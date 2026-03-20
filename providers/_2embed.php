@@ -5,7 +5,22 @@ class _2embed {
      */
     static function get_movie($movie_id) {
         $url = 'https://api.2embed.cc/movie?imdb_id=%s';
-        return sprintf($url, $movie_id);
+
+        $movie_json = @file_get_contents($url); // returns false on failure, suppress warnings with @
+        if ($movie_json === false) {
+            throw new Error('Failed to fetch movie data from primary provider');
+        }
+
+        $movie = json_decode($movie_json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
+        }
+
+        if (isset($movie['error'])) {
+            throw new Error('Movie not found in primary provider');
+        }
+        
+        return $movie_json;
     }
 
     /**

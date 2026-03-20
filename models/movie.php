@@ -5,30 +5,13 @@ require_once '../providers/_cinemaos.php';
 require_once '../providers/_vidsrc.php';
 
 class Movie {
-
+    
     public static function get_aggregated_movie($movie_id){
         $primary_provider = Config::PRIMARY_PROVIDER;
         $primary_provider = new $primary_provider();
         $embed_links = [];
 
-        $response = $primary_provider->get_movie($movie_id);
-        if (empty($response) || !is_string($response)) {
-            throw new Error('Primary provider returned an invalid response');
-        }
-
-        $movie_json = @file_get_contents($response); // returns false on failure, suppress warnings with @
-        if ($movie_json === false) {
-            throw new Error('Failed to fetch movie data from primary provider');
-        }
-
-        $movie = json_decode($movie_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($movie['error'])) {
-            throw new Error('Movie not found in primary provider');
-        }
+        $movie = $primary_provider->get_movie($movie_id);
 
         // Extract primary embed link and then get from other providers
         $embed_links[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'] ?? null;
