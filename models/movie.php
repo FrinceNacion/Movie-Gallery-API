@@ -1,18 +1,20 @@
 <?php
 require_once '../config.php';
+Config::load_enabled_providers();
 
 class Movie {
     
     public static function get_aggregated_movie($movie_id){
-        $primary_provider = Config::PRIMARY_PROVIDER;
+        $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
         $primary_provider = new $primary_provider();
         $embed_links = [];
 
         $movie = $primary_provider->get_movie($movie_id);
 
         // Extract primary embed link and then get from other providers
-        $embed_links[Config::PRIMARY_PROVIDER] = $movie['embed_imdb'] ?? null;
-        $embed_links[Config::PRIMARY_PROVIDER . '(2)'] = $movie['embed_tmdb'] ?? null;
+        $primary_provider_key = key(Config::PRIMARY_PROVIDER);
+        $embed_links[$primary_provider_key] = $movie['embed_imdb'] ?? null;
+        $embed_links[$primary_provider_key . '(2)'] = $movie['embed_tmdb'] ?? null;
         $embed_links = self::get_embed_from_providers($movie_id, $embed_links);
 
         // unset primary embed links to avoid confusion
