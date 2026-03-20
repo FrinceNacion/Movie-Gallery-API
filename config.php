@@ -41,4 +41,13 @@ class Config {
     // Global settings
     public const MAX_RETRIES = 2;
     public const DEFAULT_TIMEOUT = 10;
+
+    // Get enabled providers sorted 
+    public static function get_enabled_providers() {
+        $enabled_providers = array_filter(self::PROVIDERS, function($config) {
+            return $config['enabled'] === true; // Only include enabled providers (enabled: true)
+        });     
+
+        return $enabled_providers;
+    }
 }

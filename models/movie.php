@@ -1,8 +1,5 @@
 <?php
 require_once '../config.php';
-require_once '../providers/_2embed.php';
-require_once '../providers/_cinemaos.php';
-require_once '../providers/_vidsrc.php';
 
 class Movie {
     
@@ -27,7 +24,7 @@ class Movie {
     }
 
     private static function get_embed_from_providers($movie_id, $embed_links) {
-        $enabled_providers = self::get_enabled_providers();
+        $enabled_providers = Config::get_enabled_providers();
     
         foreach ($enabled_providers as $provider_name => $provider_config) {
             try {
@@ -43,15 +40,5 @@ class Movie {
         }
 
         return $embed_links;
-    }
-    
-
-    // Get enabled providers sorted 
-    private static function get_enabled_providers() {
-        $enabled_providers = array_filter(Config::PROVIDERS, function($config) {
-            return $config['enabled'] === true; // Only include enabled providers (enabled: true)
-        });     
-
-        return $enabled_providers;
     }
 }
