@@ -8,21 +8,23 @@ class Config {
 
     // Provider configuration
     public const PROVIDERS = [
+        '_2embed' => [
+            'class' => '_2embed',
+            'path' => '../providers/_2embed.php',
+            'enabled' => true
+        ],
         '_VidLink' => [
             'class' => '_VidLink',
-            'priority' => 1,
             'path' => '../providers/_vidlink.php',
             'enabled' => true
         ],
         '_CinemaOS' => [
             'class' => '_CinemaOS',
-            'priority' => 2,
             'path' => '../providers/_cinemaos.php',
             'enabled' => true
         ],
         '_VidSrc' => [
             'class' => '_VidSrc',
-            'priority' => 3,
             'path' => '../providers/_vidsrc.php',
             'enabled' => true
         ]
