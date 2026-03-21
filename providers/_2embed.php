@@ -77,4 +77,24 @@ class _2embed {
         }
         return $similar_movies;
     }
+
+    // Returns a json response with the show details
+    static function get_show($show_id){
+        $url = sprintf('https://api.2embed.cc/tv?imdb_id=%s', $show_id);
+
+        $show_json = @file_get_contents($url);
+        if ($show_json === false) {
+            throw new Error('Failed to fetch show data from primary provider');
+        }
+
+        $show = json_decode($show_json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
+        }
+
+        if (isset($show['error'])) {
+            throw new Error('Show not found in primary provider');
+        }
+        return $show;
+    }
 }
