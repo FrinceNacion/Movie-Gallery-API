@@ -34,5 +34,22 @@ This TODO list outlines the development tasks for implementing the aggregation o
 ## Future Enhancements
 - [ ] Add caching mechanism for movie data to reduce API calls
 - [ ] Add fallback providers when primary provider fails
-- [ ] Support for additional provider APIs
+- [x] Support for additional provider APIs
 - [ ] Stream validation to filter out broken links
+
+## TV/Show Support
+- [ ] Add TV/series model (`models/show.php`) with methods:
+  - `get_aggregated_show($show_id)`
+  - `get_aggregated_episode($show_id, $season, $episode)`
+- [ ] Extend provider classes (`_2embed`, `_cinemaos`, `_vidsrc`, `_vidlink`) to support:
+  - `get_show($show_id)`
+  - `get_episode($show_id, $season, $episode)`
+  - `get_similar_shows($show_id, $page)`
+  - `get_trending_shows($page)`
+- [ ] Add endpoints:
+  - `endpoints/get_show.php`
+  - `endpoints/get_episode.php`
+  - `endpoints/get_similar_shows.php`
+  - `endpoints/get_trending_shows.php`
+- [ ] Update existing movie endpoints to handle and return `type: movie` / `type: show` in responses
+- [ ] Add tests (if test suite exists) for show/episode aggregation and provider fallback
