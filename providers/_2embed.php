@@ -66,9 +66,21 @@ class _2embed {
         return self::fetch_and_validate($url, 'show');
     }
 
+    static function get_season_details($show_id, $season_number = 1) {
+        $url = sprintf('https://api.2embed.cc/season?imdb_id=%s&season=%d', $show_id, $season_number);
+        return self::fetch_and_validate($url, 'season details');
+    }
+
     static function get_trending_shows($page = 1) {
         $url = sprintf('https://api.2embed.cc/trendingtv?page=%d', $page);
 
         return self::fetch_and_validate($url, 'trending shows');
     }
+
+    static function get_similar_shows($show_id, $page = 1) {
+        $url = sprintf('https://api.2embed.cc/similartv?imdb_id=%s&page=%d', $show_id, $page);
+        return self::fetch_and_validate($url, 'similar shows');
+    }
+
+    
 }
