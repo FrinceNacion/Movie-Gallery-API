@@ -97,4 +97,23 @@ class _2embed {
         }
         return $show;
     }
+
+    static function get_trending_shows($page = 1) {
+        $url = sprintf('https://api.2embed.cc/trendingtv?page=%d', $page);
+
+        $shows_json = @file_get_contents($url);
+        if ($shows_json === false) {
+            throw new Error('Failed to fetch show data from primary provider');
+        }
+
+        $trending_shows = json_decode($shows_json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
+        }
+
+        if (isset($trending_shows['error'])) {
+            throw new Error('Show not found in primary provider');
+        }
+        return $trending_shows;
+    }
 }
