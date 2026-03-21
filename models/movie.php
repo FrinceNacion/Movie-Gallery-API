@@ -11,9 +11,6 @@ class Movie {
         $movie = $primary_provider->get_movie($movie_id);
 
         // Extract primary embed link and then get from other providers
-        $primary_provider_key = key(Config::PRIMARY_PROVIDER);
-        $embed_links[$primary_provider_key] = $movie['embed_imdb'] ?? null;
-        $embed_links[$primary_provider_key . '(2)'] = $movie['embed_tmdb'] ?? null;
         $embed_links = self::get_embed_from_providers($movie_id, $embed_links);
 
         // unset primary embed links to avoid confusion
