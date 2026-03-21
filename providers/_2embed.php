@@ -23,6 +23,12 @@ class _2embed {
         return $movie;
     }
 
+    // Returns only the embed URL of the movie
+    static function get_movie_embed($movie_id) {
+        $url = 'https://www.2embed.cc/embed/%s';
+        return sprintf($url, $movie_id);
+    }
+
     /**
      * Returns a json response with the trending movies by page (20 movies per page)
      * page - page number (default: 1)
