@@ -1,26 +1,36 @@
 <?php
 class _2embed {
+    /**
+     * Helper method to fetch and validate JSON from API
+     * $url The API endpoint URL
+     * $type Resource type for error messages (e.g., 'movie', 'show')
+     * Returns a decoded JSON response
+     * @throws Error
+     */
+    static function fetch_and_validate($url, $type = 'data') {
+        $json = @file_get_contents($url); // returns false on failure, suppress warnings with @
+        if ($json === false) {
+            throw new Error("Failed to fetch {$type} data from primary provider");
+        }
+
+        $data = json_decode($json, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
+        }
+
+        if (isset($data['error'])) {
+            throw new Error(ucfirst($type) . ' not found in primary provider');
+        }
+
+        return $data;
+    }
+
     /** Uses TMDB or IMDB ID for movie ID
      * Returns a json response with the movie details and the streaming links (embed)
      */
     static function get_movie($movie_id) {
         $url = sprintf('https://api.2embed.cc/movie?imdb_id=%s', $movie_id);
-
-        $movie_json = @file_get_contents($url); // returns false on failure, suppress warnings with @
-        if ($movie_json === false) {
-            throw new Error('Failed to fetch movie data from primary provider');
-        }
-
-        $movie = json_decode($movie_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($movie['error'])) {
-            throw new Error('Movie not found in primary provider');
-        }
-
-        return $movie;
+        return self::fetch_and_validate($url, 'movie');
     }
 
     // Returns only the embed URL of the movie
@@ -36,21 +46,7 @@ class _2embed {
      */
     static function get_trending_movies($page = 1) {
         $url = sprintf('https://api.2embed.cc/trending?page=%d', $page);
-
-        $movies_json = @file_get_contents($url);
-        if ($movies_json === false) {
-            throw new Error('Failed to fetch movie data from primary provider');
-        }
-
-        $trending_movies = json_decode($movies_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($trending_movies['error'])) {
-            throw new Error('Movie not found in primary provider');
-        }
-        return $trending_movies;
+        return self::fetch_and_validate($url, 'trending movies');
     }
 
     /**
@@ -61,59 +57,18 @@ class _2embed {
      */
     static function get_similar_movies($movie_id, $page = 1) {
         $url = sprintf('https://api.2embed.cc/similar?imdb_id=%s&page=%d', $movie_id, $page);
-
-        $movies_json = @file_get_contents($url);
-        if ($movies_json === false) {
-            throw new Error('Failed to fetch movie data from primary provider');
-        }
-
-        $similar_movies = json_decode($movies_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($similar_movies['error'])) {
-            throw new Error('Movie not found in primary provider');
-        }
-        return $similar_movies;
+        return self::fetch_and_validate($url, 'similar movies');
     }
 
     // Returns a json response with the show details
     static function get_show($show_id){
         $url = sprintf('https://api.2embed.cc/tv?imdb_id=%s', $show_id);
-
-        $show_json = @file_get_contents($url);
-        if ($show_json === false) {
-            throw new Error('Failed to fetch show data from primary provider');
-        }
-
-        $show = json_decode($show_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($show['error'])) {
-            throw new Error('Show not found in primary provider');
-        }
-        return $show;
+        return self::fetch_and_validate($url, 'show');
     }
 
     static function get_trending_shows($page = 1) {
         $url = sprintf('https://api.2embed.cc/trendingtv?page=%d', $page);
 
-        $shows_json = @file_get_contents($url);
-        if ($shows_json === false) {
-            throw new Error('Failed to fetch show data from primary provider');
-        }
-
-        $trending_shows = json_decode($shows_json, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Error('Invalid JSON from primary provider: ' . json_last_error_msg());
-        }
-
-        if (isset($trending_shows['error'])) {
-            throw new Error('Show not found in primary provider');
-        }
-        return $trending_shows;
+        return self::fetch_and_validate($url, 'trending shows');
     }
 }
