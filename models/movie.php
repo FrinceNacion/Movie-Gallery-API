@@ -28,6 +28,13 @@ class Movie {
         return json_encode($trending_movies);
     }
 
+    public static function get_similar_movies($movie_id, $page = 1) {
+        $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
+        $primary_provider = new $primary_provider();
+        $similar_movies = $primary_provider->get_similar_movies($movie_id, $page);
+        return json_encode($similar_movies);
+    }
+
     private static function get_embed_from_providers($movie_id, $embed_links) {
         $enabled_providers = Config::get_enabled_providers();
     
