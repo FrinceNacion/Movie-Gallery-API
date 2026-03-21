@@ -1,9 +1,9 @@
 <?php
-class VidLink{
+class _VidLink{
 
     // Might only work with TMDB ID, 
     // IMDB ID might not work, need to test
-    public function get_movie_embed($movie_id) {
+    static function get_movie_embed($movie_id) {
         $url = 'https://vidlink.pro/movie/%s';
         return sprintf($url, $movie_id);
     }
