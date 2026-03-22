@@ -1,8 +1,36 @@
 <?php
 class Show {
     public static function get_aggregated_show($show_id){
-        // Similar implementation to Movie::get_aggregated_movie but for shows
-        // This is a placeholder and should be implemented similarly to the Movie class
-        return json_encode(['error' => 'Not implemented yet']);
+        $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
+        $primary_provider = new $primary_provider();
+        $embed_links = [];
+        $show = $primary_provider->get_show($show_id);
+
+        $embed_links = self::get_embed_from_providers($show_id, $embed_links);
+
+        unset($movie['embed_imdb']);
+        unset($movie['embed_tmdb']);
+
+        $show['embed_links'] = $embed_links;
+        return json_encode($show);
+    }
+
+    private static function get_embed_from_providers($movie_id, $embed_links) {
+        $enabled_providers = Config::get_enabled_providers();
+    
+        foreach ($enabled_providers as $provider_name => $provider_config) {
+            try {
+                $provider_class = new $provider_name();
+                $embed_link = $provider_class->get_show_embed($show_id);
+
+                if (isset($embed_link)) {
+                    $embed_links[$provider_name] = $embed_link;
+                }
+            } catch (Throwable $e) {
+                continue;
+            }
+        }
+
+        return $embed_links;
     }
 }
