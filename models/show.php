@@ -15,6 +15,13 @@ class Show {
         return json_encode($show);
     }
 
+    public static function get_trending_shows($page = 1) {
+        $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
+        $primary_provider = new $primary_provider();
+        $trending_shows = $primary_provider->get_trending_shows($page);
+        return json_encode($trending_shows);
+    }
+
     public static function get_aggregated_episode_embed($show_id, $season_number = 1, $episode_number = 1) {
         $embed_links = [];
         $embed_links = self::get_embed_from_providers($show_id, $embed_links, $season_number, $episode_number);
