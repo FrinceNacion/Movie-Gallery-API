@@ -22,4 +22,12 @@ class _Vidsrc {
     * static function get_similar_movies($movie_id, $page = 1) {}
     * - does not exist in the API documentation
     */
+
+    /** Uses TMDB or IMDB ID for show ID
+     * Returns only the URL for the show, with season and episode numbers
+     */
+    static function get_show_embed($show_id, $season_number = 1, $episode_number = 1) {
+        $url = 'https://vidsrc-embed.ru/embed/tv/%s/%d-%d';
+        return sprintf($url, $show_id, $season_number, $episode_number);
+    }
 }
