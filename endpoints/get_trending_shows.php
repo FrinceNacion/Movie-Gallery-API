@@ -9,4 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-// Implement get_trending_shows in the Show model to fetch trending shows from the primary provider
+$page = $_GET['page'] ?? 1;
+
+$url = Show::get_trending_shows($page);
+$shows = json_decode($url, true);
+
+echo json_encode(['success' => true, 'shows' => $shows]);
