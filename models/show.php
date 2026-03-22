@@ -15,7 +15,13 @@ class Show {
         return json_encode($show);
     }
 
-    private static function get_embed_from_providers($movie_id, $embed_links) {
+    public static function get_aggregated_episode_embed($show_id, $season_number = 1, $episode_number = 1) {
+        $embed_links = [];
+        $embed_links = self::get_embed_from_providers($show_id, $embed_links, $season_number, $episode_number);
+        return json_encode($embed_links);
+    }
+
+    private static function get_embed_from_providers($movie_id, $embed_links, $season_number = 1, $episode_number = 1) {
         $enabled_providers = Config::get_enabled_providers();
     
         foreach ($enabled_providers as $provider_name => $provider_config) {
