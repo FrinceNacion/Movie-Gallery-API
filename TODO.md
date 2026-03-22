@@ -41,7 +41,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
 - [ ] Add TV/series model (`models/show.php`) with methods:
   - `get_aggregated_show($show_id)`
   - `get_aggregated_episode($show_id, $season, $episode)`
-- [ ] Extend provider classes (`_2embed`, `_cinemaos`, `_vidsrc`, `_vidlink`) to support:
+- [x] Extend provider classes (`_2embed`, `_cinemaos`, `_vidsrc`, `_vidlink`) to support:
   - `get_show($show_id)`
   - `get_episode($show_id, $season, $episode)`
   - `get_similar_shows($show_id, $page)`
