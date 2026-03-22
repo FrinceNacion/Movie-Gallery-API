@@ -38,7 +38,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
 - [ ] Stream validation to filter out broken links
 
 ## TV/Show Support
-- [ ] Add TV/series model (`models/show.php`) with methods:
+- [x] Add TV/series model (`models/show.php`) with methods:
   - `get_aggregated_show($show_id)`
   - `get_aggregated_episode($show_id, $season, $episode)`
 - [x] Extend provider classes (`_2embed`, `_cinemaos`, `_vidsrc`, `_vidlink`) to support:
