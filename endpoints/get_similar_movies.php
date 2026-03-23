@@ -19,6 +19,6 @@ if (!$movie_id) {
 }
 
 $url = Movie::get_similar_movies($movie_id, $page);
-$movie = json_decode(file_get_contents($url), true);
+$movie = json_decode($url, true);
 
 echo json_encode(['success' => true, 'movies' => $movie]);
