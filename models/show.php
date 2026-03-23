@@ -1,4 +1,7 @@
 <?php
+require_once '../config.php';
+Config::load_enabled_providers();
+
 class Show {
     public static function get_aggregated_show($show_id){
         $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
@@ -8,8 +11,8 @@ class Show {
 
         $embed_links = self::get_embed_from_providers($show_id, $embed_links);
 
-        unset($movie['embed_imdb']);
-        unset($movie['embed_tmdb']);
+        unset($show['embed_imdb']);
+        unset($show['embed_tmdb']);
 
         $show['embed_links'] = $embed_links;
         return json_encode($show);
@@ -35,7 +38,7 @@ class Show {
         return json_encode($embed_links);
     }
 
-    private static function get_embed_from_providers($movie_id, $embed_links, $season_number = 1, $episode_number = 1) {
+    private static function get_embed_from_providers($show_id, $embed_links, $season_number = 1, $episode_number = 1) {
         $enabled_providers = Config::get_enabled_providers();
     
         foreach ($enabled_providers as $provider_name => $provider_config) {
