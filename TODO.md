@@ -46,7 +46,7 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - `get_episode($show_id, $season, $episode)`
   - `get_similar_shows($show_id, $page)`
   - `get_trending_shows($page)`
-- [ ] Add endpoints:
+- [x] Add endpoints:
   - `endpoints/get_show.php`
   - `endpoints/get_episode.php`
   - `endpoints/get_similar_shows.php`
