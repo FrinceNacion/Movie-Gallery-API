@@ -1,5 +1,7 @@
 <?php
 require_once '../models/movie.php';
+header("Access-Control-Allow-Origin: " . Config::ACCESS_CONTROL_ALLOW_ORIGIN);
+header("Access-Control-Allow-Methods: GET");
 header('Content-Type: application/json');
 
 // GET request only
