@@ -15,6 +15,13 @@ class Show {
         return json_encode($show);
     }
 
+    public static function get_similar_shows($show_id, $page = 1) {
+        $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
+        $primary_provider = new $primary_provider();
+        $similar_shows = $primary_provider->get_similar_shows($show_id, $page);
+        return json_encode($similar_shows);
+    }
+
     public static function get_trending_shows($page = 1) {
         $primary_provider = Config::PRIMARY_PROVIDER[key(Config::PRIMARY_PROVIDER)]['class'];
         $primary_provider = new $primary_provider();
