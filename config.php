@@ -6,6 +6,8 @@ class Config {
         'path' => '../providers/_2embed.php'
     ]];
 
+    public const ACCESS_CONTROL_ALLOW_ORIGIN = '*'; // For testing, allow all origins
+
     // Provider configuration
     public const PROVIDERS = [
         '_2embed' => [
