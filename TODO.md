@@ -51,5 +51,5 @@ This TODO list outlines the development tasks for implementing the aggregation o
   - `endpoints/get_episode.php`
   - `endpoints/get_similar_shows.php`
   - `endpoints/get_trending_shows.php`
-- [ ] Update existing movie endpoints to handle and return `type: movie` / `type: show` in responses
+- [x] Update existing movie endpoints to handle and return `type: movie` / `type: show` in responses
 - [ ] Add tests (if test suite exists) for show/episode aggregation and provider fallback
