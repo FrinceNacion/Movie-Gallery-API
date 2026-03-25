@@ -21,4 +21,4 @@ if (!$show_id) {
 $url = Show::get_aggregated_show($show_id);
 $show = json_decode($url, true);
 
-echo json_encode(['success' => true, 'show' => $show]);
+echo json_encode(['success' => true, 'type' => 'show', 'show' => $show]);

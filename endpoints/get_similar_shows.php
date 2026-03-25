@@ -23,4 +23,4 @@ if (!$show_id) {
 $url = Show::get_similar_shows($show_id, $page);
 $shows = json_decode($url, true);
 
-echo json_encode(['success' => true, 'shows' => $shows]);
+echo json_encode(['success' => true, 'type' => 'show', 'shows' => $shows]);

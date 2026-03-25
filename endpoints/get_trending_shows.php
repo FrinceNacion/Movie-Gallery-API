@@ -16,4 +16,4 @@ $page = $_GET['page'] ?? 1;
 $url = Show::get_trending_shows($page);
 $shows = json_decode($url, true);
 
-echo json_encode(['success' => true, 'shows' => $shows]);
+echo json_encode(['success' => true, 'type' => 'show', 'shows' => $shows]);
