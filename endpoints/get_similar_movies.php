@@ -23,4 +23,4 @@ if (!$movie_id) {
 $url = Movie::get_similar_movies($movie_id, $page);
 $movie = json_decode($url, true);
 
-echo json_encode(['success' => true, 'movies' => $movie]);
+echo json_encode(['success' => true, 'type' => 'movie', 'movies' => $movie]);

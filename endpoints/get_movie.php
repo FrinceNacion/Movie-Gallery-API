@@ -21,4 +21,4 @@ if (!$movie_id) {
 $url = Movie::get_aggregated_movie($movie_id);
 $movie = json_decode($url, true);
 
-echo json_encode(['success' => true, 'movie' => $movie]);
+echo json_encode(['success' => true, 'type' => 'movie', 'movie' => $movie]);

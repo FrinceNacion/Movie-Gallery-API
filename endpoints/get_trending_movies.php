@@ -16,4 +16,4 @@ $page = $_GET['page'] ?? 1;
 $url = Movie::get_trending_movies($page);
 $movies = json_decode($url, true);
 
-echo json_encode(['success' => true, 'movies' => $movies]);
+echo json_encode(['success' => true, 'type' => 'movie', 'movies' => $movies]);
