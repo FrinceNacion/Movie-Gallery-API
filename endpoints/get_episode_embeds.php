@@ -17,4 +17,4 @@ $episode_number = $_GET['episode'] ?? 1;
 $url = Show::get_aggregated_episode_embed($show_id, $season_number, $episode_number);
 $episode = json_decode($url, true);
 
-echo json_encode(['success' => true, 'embed_links' => $episode]);
+echo json_encode(['success' => true, 'type' => 'show', 'embed_links' => $episode]);
