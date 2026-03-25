@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <title>TEST</title>
+</head>
+<body>
+    <div style="height: 100%; display: flex; flex-direction: column; gap: 20%;">
+        <h4>Movie</h4>
+        <div>
+            <p>get_movie.php</p>
+            <div>
+                <p>details:</p>
+                <p id="title">title: </p>
+                <p id="movie_id">id: </p>
+                <p id="status">status: </p>
+                <p id="error">error: </p>
+            </div>
+            <button onclick="getMovie()">Get Movie</button>
+        </div>
+    </div>
+    <script>
+        async function getMovie() {
+            const response = await fetch('https://mg-api.ddev.site/endpoints/get_movie.php?id=tt26443616');
+            const data = await response.json();
+            console.log(data);
+            console.log(data.movie.title);
+            document.getElementById('title').textContent = 'title: ' + (data.movie.title || 'none');
+            document.getElementById('movie_id').textContent = 'id: ' + (data.movie.imdb_id|| 'none');
+            document.getElementById('status').textContent = 'status: ' + response.status;
+            document.getElementById('error').textContent = 'error: ' + (data.error || 'none');
+        }
+    </script>
+</body>
+</html>
